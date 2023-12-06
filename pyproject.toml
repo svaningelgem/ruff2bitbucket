@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "ruff2bitbucket"
+version = "0.1.0"
+description = "Send your ruff results to bitbucket as annotations."
+authors = ["Steven Van Ingelgem <steven@vaningelgem.be>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+ruff = "^0.1.7"
+atlassian-python-api = "^3.41.4"
+toml = "^0.10.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest-mock = "^3.12.0"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+test = "pytest"
