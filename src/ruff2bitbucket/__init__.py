@@ -5,10 +5,11 @@ import sys
 from argparse import ArgumentParser
 from dataclasses import dataclass, field
 from itertools import combinations, product
-from typing import ClassVar, Iterator
+from typing import ClassVar, Iterable, Iterator
 
 
 capturer = re.compile(r'^(?P<filename>.*?):(?P<line>\d+):(?P<column>\d+):\s*(?P<description>.*)$')
+formater = re.compile(r'^Would reformat:\s*(?P<filename>.*?)$')
 
 
 @dataclass
@@ -51,7 +52,7 @@ def get_credentials() -> Credentials:
 
 
 def get_current_git_commit_hash() -> str:
-    return subprocess.run(['git', 'rev-parse', 'HEAD'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True).stdout.strip()
+    return run('git', 'rev-parse', 'HEAD', check=True).stdout.strip()
 
 
 @dataclass
@@ -66,8 +67,19 @@ class CapturedLine:
         self.column_number = int(self.column)
 
 
-def capture_output(*cmd) -> Iterator[CapturedLine]:
-    output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+def run(*cmd: str, check: bool = False) -> subprocess.CompletedProcess:
+    return subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=check)
+
+
+def check_formatting() -> Iterable[str]:
+    """Yields a list of files that would be reformatted."""
+
+    output = run("ruff", "format", "--check", ".")
+
+
+def check_code_mistakes() -> Iterable[CapturedLine]:
+    """"""
+    output = run("ruff", "check", "--no-fix", ".")
     lines = output.stdout.strip().splitlines()
     for line in lines:
         match = capturer.match(line)
@@ -85,8 +97,8 @@ def main():
 
     # git_hash = get_current_git_commit_hash()
 
-    list(capture_output("ruff", "check", "--no-fix", "."))
-    list(capture_output("ruff", "format", "--check", "."))
+    list(capture_output())
+    list(capture_output())
 
 
 if __name__ == '__main__':
