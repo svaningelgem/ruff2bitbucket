@@ -20,7 +20,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-ruff2bitbucket = "ruff2bitbucket.__main__:main"
+ruff2bitbucket = {reference = "scripts/ruff2bitbucket", type = "file"}
 
 [tool.ruff]
 # https://docs.astral.sh/ruff/rules

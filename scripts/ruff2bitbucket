@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+import ruff2bitbucket
+
+ruff2bitbucket.main()

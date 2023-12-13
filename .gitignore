@@ -2,3 +2,4 @@
 *.iml
 .ruff_cache/
 .pytest_cache/
+dist/
