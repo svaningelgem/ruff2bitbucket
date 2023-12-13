@@ -1,2 +1,4 @@
 .idea/
 *.iml
+.ruff_cache/
+.pytest_cache/
