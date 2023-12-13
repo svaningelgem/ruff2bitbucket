@@ -32,8 +32,8 @@ def check_code_mistakes() -> Iterable[CapturedLine]:
 
     if has_executable("ruff"):
         yield from yield_from_regex("ruff", "check", "--no-fix", ".", regex_to_use=capturer)
-    elif has_executable("flake8"):
-        yield from yield_from_regex("flake8", ".", regex_to_use=capturer)
+    # elif has_executable("flake8"):
+    #     yield from yield_from_regex("flake8", ".", regex_to_use=capturer)
     else:
         logger.warning("No code validation is done as neither ruff nor flake8 are available.")
 
@@ -46,7 +46,7 @@ def check_formatting() -> Iterable[CapturedLine]:
 
     if has_executable("ruff"):
         yield from yield_from_regex("ruff", "format", "--check", ".", regex_to_use=formater)
-    elif has_executable("black"):
-        yield from yield_from_regex("black", "--check", ".", regex_to_use=formater)
+    # elif has_executable("black"):
+    #     yield from yield_from_regex("black", "--check", ".", regex_to_use=formater)
     else:
         logger.warning("No format check is done because neither ruff nor black are available.")
