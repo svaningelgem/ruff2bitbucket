@@ -1,15 +1,8 @@
-import os
 import sys
 from itertools import product
 
 import pytest
 from ruff2bitbucket.credentials import Credentials, get_credentials
-
-
-@pytest.fixture(autouse=True)
-def _credentials_environment_setup(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(sys, "argv", ["script"])
-    monkeypatch.setattr(os, "environ", {})
 
 
 def test_credentials_is_same_object() -> None:
