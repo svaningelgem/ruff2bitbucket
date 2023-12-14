@@ -1,6 +1,6 @@
-import distutils.spawn
 import logging
 import re
+import shutil
 from typing import Iterable
 
 from .common import CapturedLine, run
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def has_executable(name: str) -> bool:
-    return distutils.spawn.find_executable(name) is not None
+    return shutil.which(name) is not None
 
 
 def yield_from_regex(*cmd: str, regex_to_use: re.Pattern) -> Iterable[CapturedLine]:

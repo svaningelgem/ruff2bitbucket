@@ -62,7 +62,7 @@ def _inject_run_commands(mocker: MockerFixture) -> None:
 
 @pytest.fixture(autouse=True)
 def _enable_all_executables(mocker: MockerFixture) -> None:
-    mocker.patch("distutils.spawn.find_executable", return_value="I'm there!")
+    mocker.patch("shutil.which", return_value="I'm there!")
 
 
 @pytest.fixture(autouse=True)
