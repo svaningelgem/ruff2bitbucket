@@ -1,10 +1,8 @@
 import logging
-import re
 
 import pytest
 from pytest_mock import MockerFixture
 from ruff2bitbucket import main
-
 
 base_url = (
     "https://localhost:12345/rest/insights/latest/projects/abc/repos/"
@@ -40,13 +38,15 @@ def test_main_no_valid_credentials_found(mocker: MockerFixture, caplog: pytest.L
     assert ex.value.code == 1
     assert len(caplog.records) == 1
     assert caplog.records[0].levelname == "ERROR"
-    assert caplog.records[0].message == 'Cannot upload the report to bitbucket. No valid user/pass found.'
+    assert caplog.records[0].message == "Cannot upload the report to bitbucket. No valid user/pass found."
 
 
-def test_main_some_bitbucket_error_happened_on_statistics(mocker: MockerFixture, caplog: pytest.LogCaptureFixture) -> None:
+def test_main_some_bitbucket_error_happened_on_statistics(
+    mocker: MockerFixture, caplog: pytest.LogCaptureFixture
+) -> None:
     put_mock = mocker.patch("requests.put")
     put_mock.return_value.status_code = 400
-    put_mock.return_value.json.return_value = {'dummy': 123}
+    put_mock.return_value.json.return_value = {"dummy": 123}
 
     main()
 
@@ -63,10 +63,12 @@ def test_main_some_bitbucket_error_happened_on_statistics(mocker: MockerFixture,
         assert message == caplog.records[idx].message
 
 
-def test_main_some_bitbucket_error_happened_on_annotations(mocker: MockerFixture, caplog: pytest.LogCaptureFixture) -> None:
+def test_main_some_bitbucket_error_happened_on_annotations(
+    mocker: MockerFixture, caplog: pytest.LogCaptureFixture
+) -> None:
     put_mock = mocker.patch("requests.put")
     put_mock.return_value.status_code = 404
-    put_mock.return_value.json.return_value = {'dummy': 123}
+    put_mock.return_value.json.return_value = {"dummy": 123}
 
     main()
 
@@ -84,8 +86,8 @@ def test_main_some_bitbucket_error_happened_on_annotations(mocker: MockerFixture
 
 
 def test_main_no_errors_occurred(mocker: MockerFixture, caplog: pytest.LogCaptureFixture) -> None:
-    mocker.patch('ruff2bitbucket.__main__.check_code_mistakes', return_value=[])
-    mocker.patch('ruff2bitbucket.__main__.check_formatting', return_value=[])
+    mocker.patch("ruff2bitbucket.__main__.check_code_mistakes", return_value=[])
+    mocker.patch("ruff2bitbucket.__main__.check_formatting", return_value=[])
     put_mock = mocker.patch("requests.put")
     caplog.set_level(logging.INFO)
 
@@ -119,7 +121,7 @@ def test_main_happy_flow(mocker: MockerFixture) -> None:
             "data": [
                 {"title": "Need reformat", "type": "NUMBER", "value": 2},
                 {"title": "Issue count", "type": "NUMBER", "value": 2},
-            ]
+            ],
         },
         auth=("USER", "PASS"),
     )
