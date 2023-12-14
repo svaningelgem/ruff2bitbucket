@@ -27,8 +27,8 @@ def bitbucket_upload(upload_uri: str, report: dict, name: str, error_code: int) 
             logger.warning("'PUT %s' reported one or more errors:", upload_uri)
             text = json.dumps(response.json(), indent=4).splitlines()
             for line in text:
-                logger.error("%s", line)
-            break  # But my authentication user was right, so we will stop here
+                logger.warning("%s", line)
+        break  # But my authentication user was right, so we will stop here
     else:
         logger.error("Cannot upload the %s to bitbucket. No valid user/pass found.", name)
         sys.exit(1)
@@ -41,7 +41,7 @@ def upload_code_insights(upload_uri: str, captured_lines: list[CapturedLine]) ->
             {
                 "reportKey": "ruff2bitbucket",
                 "path": message.filename,
-                "line": message.line_number,
+                "line": message.line,
                 "message": message.description,
                 "severity": "LOW",
                 "type": "CODE_SMELL",
@@ -87,7 +87,7 @@ def main() -> None:
     captured_lines = list(chain(check_code_mistakes(), check_formatting()))
 
     if not captured_lines:
-        logger.error("no errors detected. No report will be uploaded.")
+        logger.info("no errors detected. No report will be uploaded.")
         sys.exit(0)
 
     upload_code_statistics(get_repo_info().report_endpoint, captured_lines)
