@@ -1,3 +1,4 @@
+import contextlib
 import logging
 import re
 import shutil
@@ -20,8 +21,8 @@ def has_executable(name: str) -> bool:
 def yield_from_regex(*cmd: str, regex_to_use: re.Pattern) -> Iterable[CapturedLine]:
     output = run(*cmd, check=False)
     for line in output.stdout.strip().splitlines():
-        if match := regex_to_use.match(line):
-            yield CapturedLine(**match.groupdict())
+        with contextlib.suppress(AttributeError):
+            yield CapturedLine(**regex_to_use.match(line).groupdict())
 
 
 def check_code_mistakes() -> Iterable[CapturedLine]:

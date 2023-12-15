@@ -5,19 +5,19 @@ from argparse import ArgumentParser
 from dataclasses import dataclass, field
 from functools import lru_cache
 from itertools import product
-from typing import ClassVar, Iterator
+from typing import ClassVar, Iterator, List, Tuple
 
 __all__ = ["get_credentials"]
 
 
 @dataclass
 class Credentials:
-    correct_combinations: list[tuple[str, str]] = field(default_factory=list)
+    correct_combinations: List[Tuple[str, str]] = field(default_factory=list)
 
-    potential_user_envvars: ClassVar[tuple[str, ...]] = ("USER", "USR")
-    potential_pass_envvars: ClassVar[tuple[str, ...]] = ("PASS", "PW", "PWD", "PASSWORD")
+    potential_user_envvars: ClassVar[Tuple[str, ...]] = ("USER", "USR")
+    potential_pass_envvars: ClassVar[Tuple[str, ...]] = ("PASS", "PW", "PWD", "PASSWORD")
 
-    _correct_combination: tuple[str, str] | None = field(default=None, init=False)
+    _correct_combination: Tuple[str, str] | None = field(default=None, init=False)
 
     def __post_init__(self) -> None:
         user_vars = [
@@ -44,13 +44,13 @@ class Credentials:
             return 1
         return len(self.correct_combinations)
 
-    def __iter__(self) -> Iterator[tuple[str, str]]:
+    def __iter__(self) -> Iterator[Tuple[str, str]]:
         if self._correct_combination:
             yield self._correct_combination
         else:
             yield from self.correct_combinations
 
-    def report_correct_combination(self, combo: tuple[str, str]) -> None:
+    def report_correct_combination(self, combo: Tuple[str, str]) -> None:
         self._correct_combination = combo
 
 

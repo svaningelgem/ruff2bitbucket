@@ -2,6 +2,7 @@ import json
 import logging
 import sys
 from itertools import chain
+from typing import List
 
 import requests
 
@@ -34,7 +35,7 @@ def bitbucket_upload(upload_uri: str, report: dict, name: str, error_code: int) 
         sys.exit(1)
 
 
-def upload_code_insights(upload_uri: str, captured_lines: list[CapturedLine]) -> None:
+def upload_code_insights(upload_uri: str, captured_lines: List[CapturedLine]) -> None:
     annotations = []
     for message in captured_lines[:1_000]:  # Bitbucket can receive at most 1000 annotations
         annotations.append(
@@ -51,7 +52,7 @@ def upload_code_insights(upload_uri: str, captured_lines: list[CapturedLine]) ->
     bitbucket_upload(upload_uri, report={"annotations": annotations}, name="annotations", error_code=404)
 
 
-def upload_code_statistics(upload_uri: str, captured_lines: list[CapturedLine]) -> None:
+def upload_code_statistics(upload_uri: str, captured_lines: List[CapturedLine]) -> None:
     need_reformat = sum(1 for cl in captured_lines if "reformat" in cl.description)
 
     report = {
