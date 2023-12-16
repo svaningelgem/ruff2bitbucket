@@ -1,10 +1,11 @@
 [tool.poetry]
 name = "ruff2bitbucket"
-version = "0.2.0"
+version = "0.3.0"
 description = "Send your ruff results to bitbucket as annotations."
-authors = ["Steven Van Ingelgem <steven@vaningelgem.be>"]
+authors = ["Steven 'KaReL' Van Ingelgem <steven@vaningelgem.be>"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/svaningelgem/ruff2bitbucket"
 
 [tool.poetry.dependencies]
 python = "^3.7"

@@ -1,3 +1,4 @@
+import logging
 import os
 import subprocess
 import sys
@@ -78,3 +79,14 @@ def _cleanup_caches() -> None:
 @pytest.fixture(autouse=True)
 def _cleanup_get_repo_info_cache() -> None:
     return
+
+
+@pytest.fixture()
+def caplog(mocker: MockerFixture, caplog: pytest.LogCaptureFixture) -> pytest.LogCaptureFixture:
+    root = logging.getLogger()
+
+    mocker.patch.object(root, "disabled", new=False)
+    mocker.patch.object(root, "handlers", new=[])
+    mocker.patch.object(root, "level", new=logging.NOTSET)
+
+    return caplog

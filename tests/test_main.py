@@ -50,7 +50,7 @@ def test_main_some_bitbucket_error_happened_on_statistics(
 
     main()
 
-    assert all(rec.levelname == "WARNING" for rec in caplog.records)
+    warning_records = [rec for rec in caplog.records if rec.levelname == "WARNING"]
     expected = [
         f"'PUT {base_url}' reported one or more errors:",
         "{",
@@ -58,9 +58,9 @@ def test_main_some_bitbucket_error_happened_on_statistics(
         "}",
     ]
 
-    assert len(caplog.records) == len(expected)
+    assert len(warning_records) == len(expected)
     for idx, message in enumerate(expected):
-        assert message == caplog.records[idx].message
+        assert message == warning_records[idx].message
 
 
 def test_main_some_bitbucket_error_happened_on_annotations(
@@ -72,7 +72,7 @@ def test_main_some_bitbucket_error_happened_on_annotations(
 
     main()
 
-    assert all(rec.levelname == "WARNING" for rec in caplog.records)
+    warning_records = [rec for rec in caplog.records if rec.levelname == "WARNING"]
     expected = [
         f"'PUT {base_url}/annotations' reported one or more errors:",
         "{",
@@ -80,9 +80,9 @@ def test_main_some_bitbucket_error_happened_on_annotations(
         "}",
     ]
 
-    assert len(caplog.records) == len(expected)
+    assert len(warning_records) == len(expected)
     for idx, message in enumerate(expected):
-        assert message == caplog.records[idx].message
+        assert message == warning_records[idx].message
 
 
 def test_main_no_errors_occurred(mocker: MockerFixture, caplog: pytest.LogCaptureFixture) -> None:
