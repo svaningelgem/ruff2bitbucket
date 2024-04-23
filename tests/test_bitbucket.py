@@ -6,8 +6,7 @@ from ruff2bitbucket.bitbucket import get_repo_info
 
 
 def test_get_repo_info(mocker: MockerFixture) -> None:
-    class Dummy:
-        ...
+    class Dummy: ...
 
     mocker.patch("ruff2bitbucket.bitbucket.RepoInfo", new=Dummy)
 
