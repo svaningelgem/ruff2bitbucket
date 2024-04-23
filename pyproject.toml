@@ -25,6 +25,11 @@ build-backend = "poetry.core.masonry.api"
 ruff2bitbucket = {reference = "scripts/ruff2bitbucket", type = "file"}
 
 [tool.ruff]
+line-length = 120
+target-version = "py37"
+fix = true
+
+[tool.ruff.lint]
 # https://docs.astral.sh/ruff/rules
 select = [
     "E",  # pycodestyle/flake8
@@ -71,13 +76,9 @@ ignore = [
     "ISC001",
 ]
 fixable = ["ALL"]
-line-length = 120
-target-version = "py37"
-fix = true
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 case-sensitive = false
-
 
 [tool.pytest.ini_options]
 testpaths = "tests"
