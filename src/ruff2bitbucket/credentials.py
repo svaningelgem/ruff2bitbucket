@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import os
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser
@@ -16,15 +17,19 @@ class UserPass:
     username: str = ""
     password: str = ""
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         super().__setattr__("username", (self.username or "").strip())
         super().__setattr__("password", (self.password or "").strip())
 
         if not self.username:
-            raise ValueError("No username found. Please check the 'SECURITY' section in the readme on how to provide one.")
+            raise ValueError(
+                "No username found. Please check the 'SECURITY' section in the readme on how to provide one."
+            )
 
         if not self.password:
-            raise ValueError("No password found. Please check the 'SECURITY' section in the readme on how to provide one.")
+            raise ValueError(
+                "No password found. Please check the 'SECURITY' section in the readme on how to provide one."
+            )
 
     def as_tuple(self) -> Tuple[str, str]:
         return self.username, self.password
@@ -82,10 +87,8 @@ class AutoCredentials(Credentials):
             if user_prefix != pass_prefix:
                 continue
 
-            try:
+            with contextlib.suppress(ValueError):
                 values.append(UserPass(os.getenv(user_var), os.getenv(pass_var)))
-            except ValueError:
-                ...  # Skip empty username/passwords
 
         return values
 
@@ -130,7 +133,10 @@ class KeyringCredentials(Credentials):
         try:
             from keyring import get_password
         except ImportError:
-            raise ValueError("Couldn't import the 'keyring' package. Did you install it (`poetry install -E keyring` or `poetry add ruff2bitbucket[keyring]`)?")
+            raise ValueError(
+                "Couldn't import the 'keyring' package."
+                " Did you install it (`poetry install -E keyring` or `poetry add ruff2bitbucket[keyring]`)?"
+            ) from None
 
         return [UserPass(self.user, get_password(self.service_name, self.user))]
 
@@ -139,13 +145,13 @@ class KeyringCredentials(Credentials):
 def get_credentials() -> Credentials:
     parser = ArgumentParser()
 
-    parser.add_argument('--user', help='Username (or username env var) for authentication', default=None, nargs="?")
+    parser.add_argument("--user", help="Username (or username env var) for authentication", default=None, nargs="?")
 
     group = parser.add_mutually_exclusive_group(required=False)
-    group.add_argument('--pass', help='Password used for authentication', default=None, dest="pass_")
-    group.add_argument('--token', help='BitBucket API token used for authentication', default=None)
-    group.add_argument('--service_name', help='Service name for keyring authentication', default=None)
-    group.add_argument('--passvar', help='Environment variable for password', default=None)
+    group.add_argument("--pass", help="Password used for authentication", default=None, dest="pass_")
+    group.add_argument("--token", help="BitBucket API token used for authentication", default=None)
+    group.add_argument("--service_name", help="Service name for keyring authentication", default=None)
+    group.add_argument("--passvar", help="Environment variable for password", default=None)
 
     args = parser.parse_args()
 
@@ -159,6 +165,9 @@ def get_credentials() -> Credentials:
         return EnvCredentials(args.user, args.passvar)
 
     if args.user:
-        raise ValueError("I found a user without an authentication method? Please provide one, or remove for automatic envvar checking.")
+        raise ValueError(
+            "I found a user without an authentication method?"
+            " Please provide one, or remove for automatic envvar checking."
+        )
 
     return AutoCredentials()

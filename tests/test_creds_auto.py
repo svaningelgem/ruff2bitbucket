@@ -1,5 +1,4 @@
 import pytest
-
 from ruff2bitbucket.credentials import AutoCredentials
 
 

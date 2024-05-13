@@ -1,8 +1,7 @@
 import sys
 
 import pytest
-
-from ruff2bitbucket.credentials import AutoCredentials, UserPass, get_credentials
+from ruff2bitbucket.credentials import UserPass, get_credentials
 
 
 @pytest.fixture(autouse=True)

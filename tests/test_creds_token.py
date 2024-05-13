@@ -1,8 +1,7 @@
 import sys
 
 import pytest
-
-from ruff2bitbucket.credentials import AutoCredentials, UserPass, get_credentials
+from ruff2bitbucket.credentials import UserPass, get_credentials
 
 
 def test_tokencred(monkeypatch: pytest.MonkeyPatch) -> None:
