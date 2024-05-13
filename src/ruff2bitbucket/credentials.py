@@ -62,7 +62,6 @@ class AutoCredentials(Credentials):
     potential_user_envvars: ClassVar[Tuple[str, ...]] = ("USER", "USR")
     potential_pass_envvars: ClassVar[Tuple[str, ...]] = ("PASS", "PW", "PWD", "PASSWORD")
 
-
     @property
     def _up(self) -> List[UserPass]:
         user_vars = [

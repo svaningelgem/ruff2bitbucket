@@ -2,6 +2,9 @@ import sys
 from itertools import product
 
 import pytest
+from pytest_mock import MockerFixture
+
+from ruff2bitbucket import main
 from ruff2bitbucket.credentials import AutoCredentials, Credentials, UserPass, get_credentials
 
 
@@ -67,3 +70,22 @@ def test_multiple_creds_incoming_from_env(monkeypatch: pytest.MonkeyPatch) -> No
     assert len(get_credentials()) == 2
 
     assert list(get_credentials()) == [UserPass("USER1", "PASS1"), UserPass("USER2", "PASS2")]
+
+
+def test_creds_get_stored(mocker: MockerFixture, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("CRED_USER", "USER")
+    monkeypatch.setenv("CRED_PASSWORD", "PASS")
+
+    put_mock = mocker.patch("requests.put")
+    put_mock.return_value = mocker.Mock(status_code=200)
+    assert get_credentials()._correct_combination is None
+    main()
+    assert get_credentials()._correct_combination is not None
+    main()  # Here this new combination gets used, and we shouldn't crash!
+
+
+def test_cred_only_user(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(sys, "argv", ["script", "--user", "USER"])
+
+    with pytest.raises(ValueError, match="I found a user without an authentication method"):
+        get_credentials()
