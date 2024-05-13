@@ -86,8 +86,8 @@ jobs:
 
       - name: Install ruff2bitbucket
         run: |
-          poetry install --no-interaction
-          pip install keyring
+          poetry install --no-interaction --extras "keyring"
+          pip list
 
       - name: Run tests
         run: |
