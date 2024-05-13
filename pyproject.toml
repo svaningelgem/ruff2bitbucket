@@ -17,6 +17,9 @@ importlib-metadata = {version = "*", python = "<3.8"}
 pytest-mock = "*"
 pytest-cov = "*"
 
+[tool.poetry.extras]
+keyring = ["keyring"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
