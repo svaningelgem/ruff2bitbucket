@@ -85,7 +85,9 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Install ruff2bitbucket
-        run: poetry install --no-interaction
+        run: |
+          poetry install --no-interaction --extras "keyring"
+          poetry show
 
       - name: Run tests
         run: |

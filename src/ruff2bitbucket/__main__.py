@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 def bitbucket_upload(upload_uri: str, report: dict, name: str, error_code: int) -> None:
     for credential in get_credentials():
-        response = requests.put(upload_uri, json=report, auth=credential)
+        response = requests.put(upload_uri, json=report, auth=credential.as_tuple())
         if response.status_code == 401:  # Unauthorized
             continue
 

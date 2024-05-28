@@ -8,14 +8,18 @@ readme = "README.md"
 repository = "https://github.com/svaningelgem/ruff2bitbucket"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 ruff = "*"
 requests = "*"
 importlib-metadata = {version = "*", python = "<3.8"}
+keyring = {version = "*", optional = true}
 
 [tool.poetry.group.dev.dependencies]
 pytest-mock = "*"
 pytest-cov = "*"
+
+[tool.poetry.extras]
+keyring = ["keyring"]
 
 [build-system]
 requires = ["poetry-core"]
