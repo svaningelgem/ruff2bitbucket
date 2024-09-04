@@ -3,6 +3,7 @@ from itertools import product
 
 import pytest
 from pytest_mock import MockerFixture
+
 from ruff2bitbucket import main
 from ruff2bitbucket.credentials import AutoCredentials, UserPass, get_credentials
 

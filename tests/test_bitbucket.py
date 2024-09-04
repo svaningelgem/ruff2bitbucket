@@ -2,6 +2,7 @@ import subprocess
 
 import pytest
 from pytest_mock import MockerFixture
+
 from ruff2bitbucket.bitbucket import get_repo_info
 
 

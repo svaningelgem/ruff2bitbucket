@@ -2,6 +2,7 @@ import subprocess
 
 from pytest_mock import MockerFixture
 from pytest_mock.plugin import MockType
+
 from ruff2bitbucket.common import CapturedLine, run
 
 

@@ -1,5 +1,6 @@
 import pytest
 from pytest_mock import MockerFixture
+
 from ruff2bitbucket.capturer import check_code_mistakes, check_formatting, has_executable
 from ruff2bitbucket.common import CapturedLine
 
