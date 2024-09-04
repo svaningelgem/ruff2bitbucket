@@ -4,10 +4,11 @@ from subprocess import CompletedProcess
 import pytest
 from pytest_mock import MockerFixture
 from pytest_mock.plugin import MockType
+
 from ruff2bitbucket.git import get_current_git_commit_hash, get_current_repo_uri
 
 
-@pytest.fixture()
+@pytest.fixture
 def mock_run(mocker: MockerFixture) -> MockType:
     return mocker.patch("ruff2bitbucket.git.run", return_value=CompletedProcess("", 0, "abc", "def"))
 

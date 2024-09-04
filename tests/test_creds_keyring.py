@@ -3,6 +3,7 @@ import types
 
 import pytest
 from pytest_mock import MockerFixture
+
 from ruff2bitbucket.credentials import UserPass, get_credentials
 
 

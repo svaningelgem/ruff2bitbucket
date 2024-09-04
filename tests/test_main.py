@@ -2,6 +2,7 @@ import logging
 
 import pytest
 from pytest_mock import MockerFixture
+
 from ruff2bitbucket import main
 
 base_url = (

@@ -5,6 +5,7 @@ import sys
 
 import pytest
 from pytest_mock import MockerFixture
+
 from ruff2bitbucket.bitbucket import get_repo_info
 from ruff2bitbucket.credentials import get_credentials
 from ruff2bitbucket.git import get_current_git_commit_hash, get_current_repo_uri
@@ -81,7 +82,7 @@ def _cleanup_get_repo_info_cache() -> None:
     return
 
 
-@pytest.fixture()
+@pytest.fixture
 def caplog(mocker: MockerFixture, caplog: pytest.LogCaptureFixture) -> pytest.LogCaptureFixture:
     root = logging.getLogger()
 

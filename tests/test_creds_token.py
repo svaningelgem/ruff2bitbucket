@@ -1,6 +1,7 @@
 import sys
 
 import pytest
+
 from ruff2bitbucket.credentials import UserPass, get_credentials
 
 
