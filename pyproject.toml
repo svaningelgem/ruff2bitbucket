@@ -30,7 +30,7 @@ ruff2bitbucket = {reference = "scripts/ruff2bitbucket", type = "file"}
 
 [tool.ruff]
 line-length = 120
-target-version = "py37"
+target-version = "py38"
 fix = true
 
 [tool.ruff.lint]
