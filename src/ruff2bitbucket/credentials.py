@@ -9,7 +9,7 @@ from functools import lru_cache
 from itertools import product
 from typing import ClassVar, Iterator, List, Tuple
 
-__all__ = ["get_credentials", "UserPass"]
+__all__ = ["UserPass", "get_credentials"]
 
 
 @dataclass(frozen=True)

@@ -8,10 +8,10 @@ readme = "README.md"
 repository = "https://github.com/svaningelgem/ruff2bitbucket"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">3.9.1,<4.0"
 ruff = "*"
 requests = "*"
-importlib-metadata = {version = "*", python = "<3.8"}
+cryptography = ">=44.0.1"
 keyring = {version = "*", optional = true}
 
 [tool.poetry.group.dev.dependencies]
@@ -30,7 +30,7 @@ ruff2bitbucket = {reference = "scripts/ruff2bitbucket", type = "file"}
 
 [tool.ruff]
 line-length = 120
-target-version = "py37"
+target-version = "py38"
 fix = true
 
 [tool.ruff.lint]
@@ -75,8 +75,6 @@ select = [
     "RUF",  # Ruff-specific rules
 ]
 ignore = [
-    "ANN101",
-    "ANN102",
     "ISC001",
 ]
 fixable = ["ALL"]
