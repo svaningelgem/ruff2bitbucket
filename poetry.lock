@@ -806,4 +806,4 @@ keyring = ["keyring"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,!=3.9.0,!=3.9.1,<4.0"
-content-hash = "401d20c43a7113f3bbf85d0582be3c3b33b5c1278c61591e90b2e577a0321afa"
+content-hash = "f8bc3db5dedb8bc8505e0af00e435ffe2f455824edac3165718bdc46d9c17bb8"
