@@ -8,10 +8,10 @@ readme = "README.md"
 repository = "https://github.com/svaningelgem/ruff2bitbucket"
 
 [tool.poetry.dependencies]
-python = ">3.9.1,<4.0"
+python = "^3.10.0"
 ruff = "*"
 requests = "*"
-cryptography = ">=44.0.1"
+cryptography = ">=46.0.4"
 keyring = {version = "*", optional = true}
 
 [tool.poetry.group.dev.dependencies]
