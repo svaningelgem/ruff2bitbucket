@@ -11,7 +11,7 @@ repository = "https://github.com/svaningelgem/ruff2bitbucket"
 python = "^3.10.0"
 ruff = "*"
 requests = "*"
-cryptography = ">=44.0.1"
+cryptography = ">=44.0.3"
 keyring = {version = "*", optional = true}
 
 [tool.poetry.group.dev.dependencies]
