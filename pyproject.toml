@@ -1,32 +1,43 @@
-[tool.poetry]
+[project]
 name = "ruff2bitbucket"
 version = "0.4.0"
 description = "Send your ruff results to bitbucket as annotations."
-authors = ["Steven 'KaReL' Van Ingelgem <steven@vaningelgem.be>"]
-license = "MIT"
+authors = [{ name = "Steven 'KaReL' Van Ingelgem", email = "steven@vaningelgem.be" }]
+requires-python = ">=3.10.0,<4"
 readme = "README.md"
-repository = "https://github.com/svaningelgem/ruff2bitbucket"
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "ruff",
+    "requests",
+    "cryptography>=46.0.4",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10.0"
-ruff = "*"
-requests = "*"
-cryptography = ">=46.0.4"
-keyring = {version = "*", optional = true}
-
-[tool.poetry.group.dev.dependencies]
-pytest-mock = "*"
-pytest-cov = "*"
-
-[tool.poetry.extras]
+[project.optional-dependencies]
 keyring = ["keyring"]
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[project.urls]
+Repository = "https://github.com/svaningelgem/ruff2bitbucket"
 
-[tool.poetry.scripts]
-ruff2bitbucket = {reference = "scripts/ruff2bitbucket", type = "file"}
+[dependency-groups]
+dev = [
+    "pytest-mock",
+    "pytest-cov",
+]
+
+[tool.uv]
+default-groups = "all"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
 
 [tool.ruff]
 line-length = 120
