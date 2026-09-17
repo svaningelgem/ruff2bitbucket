@@ -97,3 +97,6 @@ case-sensitive = false
 testpaths = "tests"
 
 log_cli = true
+
+[tool.coverage.run]
+source = ["ruff2bitbucket"]
